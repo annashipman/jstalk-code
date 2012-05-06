@@ -1,4 +1,1 @@
-jstalk-code
-===========
-
-Code for JStalk
+Code for the JS visualisations talk... in progress...
