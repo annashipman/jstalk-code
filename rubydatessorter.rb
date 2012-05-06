@@ -7,10 +7,9 @@ class TimeSpentCalculator
     @no_dates = []
     @records_with_dates = []
     @total_days_recorded = 0
-    read
   end
 
-  def read
+  def read_and_split_into_arrays
     file = File.open("../data/Alldata.csv", "r")
     @headers = file.gets.chomp.split(',')
 
@@ -50,13 +49,41 @@ class TimeSpentCalculator
     end
     puts "Total days recorded is #{@total_days_recorded} and number of features in our array is #{@records_with_dates.length}"
   end
+
+  def split_features_by_project
+    a = []
+    c = []
+    f = []
+    p = []    
+    s = []
+    @records_with_dates.each do |feature|
+      if feature.project.eql?"Project A" 
+        a << feature
+      elsif feature.project.eql?"Project C"
+        c << feature
+      elsif feature.project.eql?"Project F"
+        f << feature
+      elsif feature.project.eql?"Project P"
+        p << feature
+      elsif feature.project.eql?"Project S" 
+        s << feature
+      else
+        puts "no project or #{feature.project}" 
+      end
+    end 
+    puts "Project A features: #{a.length} Project C features: #{c.length} Project F features: #{f.length} Project P features: #{p.length} Project S features: #{s.length}"
+  end
+
 end
    
+
+
 class Feature
 
   attr_accessor :project, :feature_id, :type, :start_date, :end_date, :time_taken
 
 end
+
 	
 #3. Sorts the dates collection into groups by Project and for now, outputs a basic tree, e.g.
 #Project A
@@ -65,5 +92,6 @@ end
 #    total time: 80 days.
 
 
-m = TimeSpentCalculator.new
-
+calculator = TimeSpentCalculator.new
+calculator.read_and_split_into_arrays
+calculator.split_features_by_project
