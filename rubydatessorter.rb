@@ -13,8 +13,7 @@ class TimeSpentCalculator
   end
 
   def read
-    puts "No dates should be 0 and is #{@no_dates.length} and likewise puppies: #{@puppies.length}"    
-    file = File.open("../../data/Alldata.csv", "r")
+    file = File.open("../data/Alldata.csv", "r")
 
     file.each_line do |row|
  
