@@ -82,6 +82,18 @@ class TimeSpentCalculator
       end
     end
     #TODO actually we want this as a JSON tree for plugging into the diagram
+    #In this form:
+    #var json = {  
+    #    "id": "aUniqueIdentifier",  
+    #    "name": "usually a nodes name",  
+    #    "data": {  
+    #    "some key": "some value",  
+    #    "some other key": "some other value"  
+    #   },  
+    #  "children": [ *other nodes or empty* ]  
+    # };  
+    
+    #next step - make the form above the form required for the Sunburst
     puts "Project A no of features: #{a.length} and time taken = #{a_total_time}"
     puts "Project C no of features: #{c.length} and time taken = #{c_total_time}"
     puts "Project F no of features: #{f.length} and time taken = #{f_total_time}"
