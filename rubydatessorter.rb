@@ -52,45 +52,51 @@ class TimeSpentCalculator
 
   def split_features_by_project
     a = []
+    a_total_time = 0
     c = []
+    c_total_time = 0
     f = []
-    p = []    
+    f_total_time = 0
+    p = []
+    p_total_time = 0
     s = []
+    s_total_time = 0
     @records_with_dates.each do |feature|
       if feature.project.eql?"Project A" 
+        a_total_time += feature.time_taken        
         a << feature
       elsif feature.project.eql?"Project C"
+        c_total_time += feature.time_taken 
         c << feature
       elsif feature.project.eql?"Project F"
+        f_total_time += feature.time_taken         
         f << feature
       elsif feature.project.eql?"Project P"
+        p_total_time += feature.time_taken 
         p << feature
       elsif feature.project.eql?"Project S" 
+        s_total_time += feature.time_taken 
         s << feature
       else
         puts "no project or #{feature.project}" 
       end
-    end 
-    puts "Project A features: #{a.length} Project C features: #{c.length} Project F features: #{f.length} Project P features: #{p.length} Project S features: #{s.length}"
+    end
+    #TODO actually we want this as a JSON tree for plugging into the diagram
+    puts "Project A no of features: #{a.length} and time taken = #{a_total_time}"
+    puts "Project C no of features: #{c.length} and time taken = #{c_total_time}"
+    puts "Project F no of features: #{f.length} and time taken = #{f_total_time}"
+    puts "Project P no of features: #{p.length} and time taken = #{p_total_time}"
+    puts "Project S no of features: #{s.length} and time taken = #{s_total_time}"
+
   end
 
 end
    
-
-
 class Feature
 
   attr_accessor :project, :feature_id, :type, :start_date, :end_date, :time_taken
 
 end
-
-	
-#3. Sorts the dates collection into groups by Project and for now, outputs a basic tree, e.g.
-#Project A
-#    total time: 125 days.
-#Project B
-#    total time: 80 days.
-
 
 calculator = TimeSpentCalculator.new
 calculator.read_and_split_into_arrays
