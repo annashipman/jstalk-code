@@ -7,6 +7,7 @@ class TimeSpentCalculator
     @no_dates = []
     @records_with_dates = []
     @total_days_recorded = 0
+    @ready_to_dump = {}
   end
 
   def read_and_split_into_arrays
@@ -145,11 +146,22 @@ class TimeSpentCalculator
       end
     end
 
-    puts "Project A no of features should be 204 and is: #{a["children"].length} and time taken should be 4186 and is = #{a["data"]["size"]}"
-    puts "Project C no of features should be 27 and is: #{c["children"].length} and time taken should be 1088 and is = #{c["data"]["size"]}"
-    puts "Project F no of features should be 8 and is: #{f["children"].length} and time taken should be 22 and is = #{f["data"]["size"]}"
-    puts "Project P no of features should be 8 and is: #{p["children"].length} and time taken should be 12 and is = #{p["data"]["size"]}"
-    puts "Project S no of features should be 122 and is: #{s["children"].length} and time taken should be 4084 = #{s["data"]["size"]}"
+#    puts "Project A no of features should be 204 and is: #{a["children"].length} and time taken should be 4186 and is = #{a["data"]["size"]}"
+#    puts "Project C no of features should be 27 and is: #{c["children"].length} and time taken should be 1088 and is = #{c["data"]["size"]}"
+#    puts "Project F no of features should be 8 and is: #{f["children"].length} and time taken should be 22 and is = #{f["data"]["size"]}"
+#    puts "Project P no of features should be 8 and is: #{p["children"].length} and time taken should be 12 and is = #{p["data"]["size"]}"
+#    puts "Project S no of features should be 122 and is: #{s["children"].length} and time taken should be 4084 = #{s["data"]["size"]}"
+    @ready_to_dump["A"] = a
+    @ready_to_dump["C"] = c
+    @ready_to_dump["F"] = f
+    @ready_to_dump["P"] = p
+    @ready_to_dump["S"] = s
+
+    #TODO this is not quite right. Shouldn't be A =, etc. Also, needs to be var json = or whatever. Nearly there!
+    File.open('test.rb', 'w') do |f|  
+        f.puts JSON.dump(@ready_to_dump)  
+    end
+
 
   end
 
