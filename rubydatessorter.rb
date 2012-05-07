@@ -10,7 +10,7 @@ class TimeSpentCalculator
   end
 
   def read_and_split_into_arrays
-    file = File.open("../data/Alldata.csv", "r")
+    file = File.open("../data/alldata.csv", "r")
     @headers = file.gets.chomp.split(',')
 
     file.each_line do |row|
@@ -30,86 +30,131 @@ class TimeSpentCalculator
                 #calculate the time spent
                 start_date_as_date = Date.parse(start_date)
                 end_date_as_date = Date.parse(end_date)
-                time_spent_in_days = (end_date_as_date - start_date_as_date).to_i #TODO actually, we want this to be week days               
-                #add the time spent to the total
+                #ideally this would be week days, but not hugely important for this visualisation      
+                time_spent_in_days = (end_date_as_date - start_date_as_date).to_i          
+                #do we need this? 
                 @total_days_recorded +=time_spent_in_days
                 #what information do we want?
                 #we could get T-shirt size here but a lot of records don't have them - could discuss...
-                feature = Feature.new
-                feature.project = record[1].tr_s('"', '').strip
-                feature.feature_id = record[0].tr_s('"', '').strip
-                feature.type = record[2].tr_s('"', '').strip
-                feature.start_date = start_date
-                feature.end_date = end_date
-                feature.time_taken = time_spent_in_days                              
+                
+                project = record[1].tr_s('"', '').strip
+
+                feature = { "id" => record[0].tr_s('"', '').strip,
+                            "name" => record[0].tr_s('"', '').strip, #why both?
+                            "data" => {"project" => project,
+                                       "$angularWidth" => time_spent_in_days,
+                                       "description" => "would be good to have something here",
+                                       "type" => record[2].tr_s('"', '').strip,
+                                       "startDate" => start_date,
+                                       "endDate" => end_date,
+                                       "timeTaken" => time_spent_in_days,                                       
+                                       "$color" => "#FCD9A1",   #ahem! also - maybe have this dependent on type?
+                                       "size"  => time_spent_in_days #come back to why this is duplicated in the example
+                                        },
+                            "children" => []
+                         }
                 @records_with_dates << feature
             end
           
         end
     end
-    puts "Total days recorded is #{@total_days_recorded} and number of features in our array is #{@records_with_dates.length}"
   end
-
+  
   def split_features_by_project
-    a = []
-    a_total_time = 0
-    c = []
-    c_total_time = 0
-    f = []
-    f_total_time = 0
-    p = []
-    p_total_time = 0
-    s = []
-    s_total_time = 0
+    a = {"id" => "A",  
+         "name" => "Project A",  
+         "data" => {  
+            "$angularWidth" => 0,
+            "description" => "some stuff about project A",  
+            "$color" => "#FCD9A1",   
+            "size" => 0 
+            },  
+        "children" => []  
+        }  
+    c = {"id" => "C",  
+         "name" => "Project C",  
+         "data" => {  
+            "$angularWidth" => 0,
+            "description" => "some stuff about project C",  
+            "$color" => "#FCD9A1",   
+            "size" => 0 
+            },  
+        "children" => []  
+        }  
+    f = {"id" => "F",  
+         "name" => "Project F",  
+         "data" => {  
+            "$angularWidth" => 0,
+            "description" => "some stuff about project F",  
+            "$color" => "#FCD9A1",   
+            "size" => 0 
+            },  
+        "children" => []  
+        }  
+    p = {"id" => "P",  
+         "name" => "Project P",  
+         "data" => {  
+            "$angularWidth" => 0,
+            "description" => "some stuff about project P",  
+            "$color" => "#FCD9A1",   
+            "size" => 0 
+            },  
+        "children" => []  
+        }  
+    s = {"id" => "S",  
+         "name" => "Project S",  
+         "data" => {  
+            "$angularWidth" => 0,
+            "description" => "some stuff about project S",  
+            "$color" => "#FCD9A1",   
+            "size" => 0 
+            },  
+        "children" => []  
+        }  
+
     @records_with_dates.each do |feature|
-      if feature.project.eql?"Project A" 
-        a_total_time += feature.time_taken        
-        a << feature
-      elsif feature.project.eql?"Project C"
-        c_total_time += feature.time_taken 
-        c << feature
-      elsif feature.project.eql?"Project F"
-        f_total_time += feature.time_taken         
-        f << feature
-      elsif feature.project.eql?"Project P"
-        p_total_time += feature.time_taken 
-        p << feature
-      elsif feature.project.eql?"Project S" 
-        s_total_time += feature.time_taken 
-        s << feature
+       data = feature["data"] 
+       project = data["project"] 
+      if "Project A".eql?project 
+        a["data"]["$angularWidth"] += data["timeTaken"]
+        a["data"]["size"] += data["timeTaken"] #TODO - avoid repetition     
+        children = a["children"]
+        children << feature        
+     elsif "Project C".eql?project
+        c["data"]["$angularWidth"] += data["timeTaken"]
+        c["data"]["size"] += data["timeTaken"]      
+        children = c["children"]
+        children << feature        
+     elsif "Project F".eql?project
+        f["data"]["$angularWidth"] += data["timeTaken"]
+        f["data"]["size"] += data["timeTaken"]      
+        children = f["children"]
+        children << feature        
+     elsif "Project P".eql?project
+        p["data"]["$angularWidth"] += data["timeTaken"]
+        p["data"]["size"] += data["timeTaken"]       
+        children = p["children"]
+        children << feature        
+     elsif "Project S".eql?project
+        s["data"]["$angularWidth"] += data["timeTaken"]
+        s["data"]["size"] += data["timeTaken"]      
+        children = s["children"]
+        children << feature        
       else
         puts "no project or #{feature.project}" 
       end
     end
-    #TODO actually we want this as a JSON tree for plugging into the diagram
-    #In this form:
-    #var json = {  
-    #    "id": "aUniqueIdentifier",  
-    #    "name": "usually a nodes name",  
-    #    "data": {  
-    #    "some key": "some value",  
-    #    "some other key": "some other value"  
-    #   },  
-    #  "children": [ *other nodes or empty* ]  
-    # };  
-    
-    #next step - make the form above the form required for the Sunburst
-    puts "Project A no of features: #{a.length} and time taken = #{a_total_time}"
-    puts "Project C no of features: #{c.length} and time taken = #{c_total_time}"
-    puts "Project F no of features: #{f.length} and time taken = #{f_total_time}"
-    puts "Project P no of features: #{p.length} and time taken = #{p_total_time}"
-    puts "Project S no of features: #{s.length} and time taken = #{s_total_time}"
+
+    puts "Project A no of features should be 204 and is: #{a["children"].length} and time taken should be 4186 and is = #{a["data"]["size"]}"
+    puts "Project C no of features should be 27 and is: #{c["children"].length} and time taken should be 1088 and is = #{c["data"]["size"]}"
+    puts "Project F no of features should be 8 and is: #{f["children"].length} and time taken should be 22 and is = #{f["data"]["size"]}"
+    puts "Project P no of features should be 8 and is: #{p["children"].length} and time taken should be 12 and is = #{p["data"]["size"]}"
+    puts "Project S no of features should be 122 and is: #{s["children"].length} and time taken should be 4084 = #{s["data"]["size"]}"
 
   end
 
 end
    
-class Feature
-
-  attr_accessor :project, :feature_id, :type, :start_date, :end_date, :time_taken
-
-end
-
 calculator = TimeSpentCalculator.new
 calculator.read_and_split_into_arrays
 calculator.split_features_by_project
