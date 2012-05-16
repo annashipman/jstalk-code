@@ -4,31 +4,30 @@ require 'date'
 class TimeSpentCalculator
 
   def initialize
-    @no_dates = []
+    @no_start_dates = []
+    @no_end_dates = []
     @records_with_dates = []
     @total_days_recorded = 0
     @ready_to_dump = {}
   end
 
   def read_and_split_into_arrays
-    file = File.open("../data/alldata.csv", "r")
+    file = File.open("../data/newalldata.csv", "r")
     @headers = file.gets.chomp.split(',')
 
     file.each_line do |row|
  
       record = row.chomp.split(',') 
         if record.empty? 
-            #a blank row. TODO how to do this using unless?
+            #a blank row - do nothing. How to do better?
         else    
           start_date = record[7].tr_s('"', '').strip
           end_date = record[12].tr_s('"', '').strip
-            if start_date.eql?"NULL" or end_date.eql?"NULL"
-                #we could get some data here, like what project, what date it was, etc. 
-                #But no need for now. 
-                @no_dates << record
-            else
-                #get the project
-                #calculate the time spent
+            if start_date.eql?"NULL" or start_date.empty? 
+                @no_start_dates << record
+            elsif end_date.eql?"NULL" or end_date.empty?
+                @no_end_dates << record           
+            else                
                 start_date_as_date = Date.parse(start_date)
                 end_date_as_date = Date.parse(end_date)
                 #ideally this would be week days, but not hugely important for this visualisation      
@@ -158,7 +157,7 @@ class TimeSpentCalculator
         file.puts "var json ="  
         file.puts JSON.dump(parent)  
     end
-
+       puts "no start: #{@no_start_dates.length} and no end: #{@no_end_dates.length}"
 
   end
 
