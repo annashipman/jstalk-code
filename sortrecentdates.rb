@@ -18,28 +18,30 @@ class TimeSpentCalculator
     file.each_line do |row|
  
       record = row.chomp.split(',') 
-        if record.empty? 
-            #a blank row - do nothing. How to do better?
+        if record.empty?
         else    
           start_date = record[7].tr_s('"', '').strip
           end_date = record[12].tr_s('"', '').strip
             if start_date.eql?"NULL" or start_date.empty? 
-                @no_start_dates << record
+                            @no_start_dates << record    
             elsif end_date.eql?"NULL" or end_date.empty?
                 @no_end_dates << record           
             else                
                 start_date_as_date = Date.parse(start_date)
-                end_date_as_date = Date.parse(end_date)
-                #ideally this would be week days, but not hugely important for this visualisation      
-                time_spent_in_days = (end_date_as_date - start_date_as_date).to_i          
-                #do we need this? 
-                @total_days_recorded +=time_spent_in_days
-                #what information do we want?
-                #we could get T-shirt size here but a lot of records don't have them - could discuss...
+                start_date_is_later = start_date_as_date <=> Date.new(2012,3,3)
+                if start_date_is_later == 1
                 
-                project = record[1].tr_s('"', '').strip
+                    end_date_as_date = Date.parse(end_date)
+                    #ideally this would be week days, but not hugely important for this visualisation      
+                    time_spent_in_days = (end_date_as_date - start_date_as_date).to_i          
+                    #do we need this? 
+                    @total_days_recorded +=time_spent_in_days
+                    #what information do we want?
+                    #we could get T-shirt size here but a lot of records don't have them - could discuss...
+                
+                    project = record[1].tr_s('"', '').strip
 
-                feature = { "id" => record[0].tr_s('"', '').strip,
+                    feature = { "id" => record[0].tr_s('"', '').strip,
                             "name" => record[0].tr_s('"', '').strip, #why both?
                             "data" => {"project" => project,
                                        "$angularWidth" => time_spent_in_days,
@@ -53,9 +55,9 @@ class TimeSpentCalculator
                                         },
                             "children" => []
                          }
-                @records_with_dates << feature
-            end
-          
+                      @records_with_dates << feature
+                end
+            end          
         end
     end
   end
@@ -158,7 +160,7 @@ class TimeSpentCalculator
         file.puts JSON.dump(parent)  
     end
        puts "no start: #{@no_start_dates.length} and no end: #{@no_end_dates.length}"
-        puts "total in chart: #{@records_with_dates.length}"
+      puts "total in chart: #{@records_with_dates.length}"
 
   end
 
