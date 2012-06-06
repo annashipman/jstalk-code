@@ -1,0 +1,10 @@
+
+var projects = [1, 2, 3, 4]
+
+var anna = {
+    numberOfFeatures: 1,
+    timeSpentOnFeatures: 2, 
+    fixedBugs: 3, 
+    unfixedBugs: 4 
+ }
+
