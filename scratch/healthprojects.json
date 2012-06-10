@@ -1,10 +1,24 @@
-
-var projects = [1, 2, 3, 4]
-
-var anna = {
-    numberOfFeatures: 1,
-    timeSpentOnFeatures: 2, 
+var projects = [{
+    numberOfFeatures: 100,
+    timeSpentOnFeatures: 100, 
+    fixedBugs: 1, 
+    unfixedBugs: 1 
+ }, 
+{
+numberOfFeatures: 200,
+    timeSpentOnFeatures: 200, 
+    fixedBugs: 2, 
+    unfixedBugs: 2
+},
+{
+numberOfFeatures: 300,
+    timeSpentOnFeatures: 300, 
     fixedBugs: 3, 
-    unfixedBugs: 4 
- }
+    unfixedBugs: 3
+},
+{numberOfFeatures: 400,
+    timeSpentOnFeatures: 400, 
+    fixedBugs: 4, 
+    unfixedBugs: 4
+}]
 
