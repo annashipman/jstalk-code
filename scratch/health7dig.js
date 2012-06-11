@@ -61,11 +61,10 @@ var label = svg.append("text")
     .attr("y", height - 24)
     .attr("x", width);
 
-draw(projects);
+draw(projects, bugs);
 
-function draw(projects) {
+function draw(projects, bugs) {
 
-    //take each project in turn
     var project = svg.append("g")
         .selectAll("project")
         .data(projects)
@@ -73,6 +72,14 @@ function draw(projects) {
         .append("rect")
         .style("fill", "black")
         .call(bar)
+
+    var dots = svg.append("g")
+        .selectAll("bug")
+        .data(projects)
+        .enter()
+        .append("circle") //hmm - otherwise there is no method call...
+        .style("fill", "black")
+        .call(bugs)
 }
 /*
   // A bisector since many nation's data is sparsely-defined.
@@ -109,10 +116,12 @@ function draw(projects) {
         .attr("height", function(d) { return numberOfFeatures(d) });
     }
 
-  function position(project) {
-    project .attr("cx", function(d) {return d.numberOfFeatures } )
-        .attr("cy", function(d) {return d.timeSpentOnFeatures } )
-        .attr("r", 60);
+  function bugs(dots) {
+       
+        
+    dots .attr("cx", function(d) {return d.numberOfFeatures } )
+      .attr("cy", function(d) {return d.timeSpentOnFeatures } )
+        .attr("r", 10);
   }
 
 /*

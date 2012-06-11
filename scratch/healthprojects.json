@@ -26,5 +26,19 @@ numberOfFeatures: 400,
     timeSpentOnFeatures: 400, 
     fixedBugs: 4, 
     unfixedBugs: 4
-}]
+}];
 
+var bugs = [ {
+fixedBugs: 1, 
+    unfixedBugs: 1 
+},
+{
+fixedBugs: 2, 
+    unfixedBugs: 2 
+},{
+fixedBugs: 3, 
+    unfixedBugs: 3 
+},{
+fixedBugs: 4, 
+    unfixedBugs: 4 
+}]
