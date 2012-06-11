@@ -1,22 +1,28 @@
 var projects = [{
+    projectPosition: 1,
     numberOfFeatures: 100,
     timeSpentOnFeatures: 100, 
     fixedBugs: 1, 
     unfixedBugs: 1 
  }, 
 {
+projectPosition: 2,
 numberOfFeatures: 200,
     timeSpentOnFeatures: 200, 
     fixedBugs: 2, 
     unfixedBugs: 2
 },
 {
+projectPosition: 3,
 numberOfFeatures: 300,
     timeSpentOnFeatures: 300, 
     fixedBugs: 3, 
     unfixedBugs: 3
 },
-{numberOfFeatures: 400,
+
+{
+projectPosition: 4,
+numberOfFeatures: 400,
     timeSpentOnFeatures: 400, 
     fixedBugs: 4, 
     unfixedBugs: 4

@@ -1,10 +1,6 @@
-//I think I'm saying d is a project, that has these four thigns. So, fake data.
-
-/*var fakeDataA = { numberOfFeatures: 2, timeSpentOnFeatures: 3, fixedBugs: 1, unfixedBugs:4 }
-*/
 // Various accessors that specify the four dimensions of data to visualize.
-function x(d) { return d.numberOfFeatures; }
-function y(d) { return d.timeSpentOnFeatures; }
+function projectPosition(d) { return d.projectPosition * 100; }
+function numberOfFeatures(d) { return d.numberOfFeatures; }
 function greenBugs(d) { return d.fixedBugs; }
 function redBugs(d) { return d.unfixedBugs; }
 
@@ -97,29 +93,20 @@ function draw(projects) {
   // Add a title.
   dot.append("title")
       .text(function(d) { return d.name; });
-  // Start a transition that interpolates the data based on year.
+  // Start a transition that interpolates the function(d) {data based on year.
   svg.transition()
       .duration(30000)
       .ease("linear")
       .tween("year", tweenYear)
      // .each("end", enableInteraction);
 */
-  
- /* function bar(project) {
-    project .attr(
-
-    }
-*/
   // Positions the dots based on data.
 
   function bar(project) {
-    project .attr("x", function(d) {return d.numberOfFeatures } )
-        .attr("y", function(d) {return d.timeSpentOnFeatures } )
-        //.attr("r", 50);        
+    project .attr("x", function(d) {return projectPosition(d) } )
+        .attr("y", function(d) { return height - numberOfFeatures(d) } )
         .attr("width", 60)
-        .attr("height", 60);
-  
-
+        .attr("height", function(d) { return numberOfFeatures(d) });
     }
 
   function position(project) {
