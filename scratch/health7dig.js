@@ -61,9 +61,9 @@ var label = svg.append("text")
     .attr("y", height - 24)
     .attr("x", width);
 
-draw(projects, bugs);
+draw(projects);
 
-function draw(projects, bugs) {
+function draw(projects) {
 
     var project = svg.append("g")
         .selectAll("project")
@@ -72,13 +72,21 @@ function draw(projects, bugs) {
         .append("rect")
         .style("fill", "black")
         .call(bar)
+        //.append("circle")
+        //.style("fill", "black")
+        //.call(bugs)
 
-    var dots = svg.append("g")
+   var dots = svg.append("g")
         .selectAll("bug")
         .data(projects)
         .enter()
-        .append("circle") //hmm - otherwise there is no method call...
-        .style("fill", "black")
+        .append("circle") //hmm - otherwise there is no method call...        
+        .style("fill", "red")
+        .call(bugs)        
+        //this second one doesn't happen (it's appended inside the main one)
+        //need a way to cycle through and do it x times. 
+        .append("circle") //hmm - otherwise there is no method call...        
+        .style("fill", "black")        
         .call(bugs)
 }
 /*
@@ -116,11 +124,11 @@ function draw(projects, bugs) {
         .attr("height", function(d) { return numberOfFeatures(d) });
     }
 
-  function bugs(dots) {
-       
-        
-    dots .attr("cx", function(d) {return d.numberOfFeatures } )
-      .attr("cy", function(d) {return d.timeSpentOnFeatures } )
+  function bugs(project) {
+    console.log(project)
+    project //.append("circle").style("fill", "red")
+    .attr("cx", 50 )
+      .attr("cy", 50 )
         .attr("r", 10);
   }
 
