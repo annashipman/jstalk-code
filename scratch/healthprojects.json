@@ -2,30 +2,30 @@ var projects = [{
     projectPosition: 1,
     numberOfFeatures: 100,
     timeSpentOnFeatures: 100, 
-    fixedBugs: 1, 
-    unfixedBugs: 1 
+    fixedBugs: [1, 3, 7], 
+    unfixedBugs: [1, 3, 7] 
  }, 
 {
 projectPosition: 2,
 numberOfFeatures: 200,
     timeSpentOnFeatures: 200, 
-    fixedBugs: 2, 
-    unfixedBugs: 2
+    fixedBugs: [1, 3, 7], 
+    unfixedBugs: [1, 3, 7]
 },
 {
 projectPosition: 3,
 numberOfFeatures: 300,
     timeSpentOnFeatures: 300, 
-    fixedBugs: 3, 
-    unfixedBugs: 3
+    fixedBugs: [1, 3, 7], 
+    unfixedBugs: [1, 3, 7]
 },
 
 {
 projectPosition: 4,
 numberOfFeatures: 400,
     timeSpentOnFeatures: 400, 
-    fixedBugs: 4, 
-    unfixedBugs: 4
+    fixedBugs: [1, 3, 7, 8], 
+    unfixedBugs: [1, 3, 7, 8]
 }];
 
 var bugs = [ {

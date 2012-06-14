@@ -76,18 +76,39 @@ function draw(projects) {
         //.style("fill", "black")
         //.call(bugs)
 
-   var dots = svg.append("g")
+   var originalDots = svg.append("g")
         .selectAll("bug")
         .data(projects)
         .enter()
-        .append("circle") //hmm - otherwise there is no method call...        
-        .style("fill", "red")
-        .call(bugs)        
+        .append("circle")// function(d) { return "circle" })
+        .style("fill","blue")
+        .call(bugs);
+
+     
         //this second one doesn't happen (it's appended inside the main one)
         //need a way to cycle through and do it x times. 
-        .append("circle") //hmm - otherwise there is no method call...        
-        .style("fill", "black")        
-        .call(bugs)
+        //.append("circle") //hmm - otherwise there is no method call...        
+        //.style("fill", "black")        
+        //.call(bugs)
+    console.log("here" + projects.length);
+    var len = projects.length
+   for (var index = 0; index < len; index++) {
+   
+   //do the bar work in here as well so can position them together
+     
+     var project = projects[index];
+      
+     svg.append("g")
+        .selectAll("bug")
+        .data(project.fixedBugs)
+        .enter()
+        .append("circle")// function(d) { return "circle" })
+        .style("fill",function(){console.log("worked"); return "orange";})
+        .call(bugs);
+   }
+
+    
+
 }
 /*
   // A bisector since many nation's data is sparsely-defined.
