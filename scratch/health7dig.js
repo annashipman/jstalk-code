@@ -70,7 +70,7 @@ function draw(projects) {
         .data(projects)
         .enter()
         .append("rect")
-        .style("fill", "black")
+        .style("fill", "blue")
         .call(bar)
      
     var len = projects.length
@@ -85,10 +85,23 @@ function draw(projects) {
         .data(project.fixedBugs)
         .enter()
         .append("circle")
-        .style("fill",function(){console.log(project.fixedBugs); return "orange";})
+        .style("fill",function(){ return "green";})
         .attr("cx", function(d) { return projectPosition(project) }) 
         .attr("cy", function(d) { return d*30 } )
         .attr("r", 10);
+    
+    svg.append("g")
+        .selectAll("bug")
+        .data(project.unfixedBugs)
+        .enter()
+        .append("circle")
+        .style("fill",function(){ return "red";})
+        .attr("cx", function(d) { return projectPosition(project) + 10}) 
+        .attr("cy", function(d) { return d*40 } )
+        .attr("r", 10);
+
+
+        
 /*        .
         
         
