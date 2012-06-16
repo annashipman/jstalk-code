@@ -1,6 +1,6 @@
 // Various accessors that specify the four dimensions of data to visualize.
 function projectPosition(d) { return d.projectPosition * 100; }
-function numberOfFeatures(d) { return d.numberOfFeatures; }
+function numberOfFeatures(d) { return d.numberOfFeatures.length * 100; }
 function greenBugs(d) { return d.fixedBugs; }
 function redBugs(d) { return d.unfixedBugs; }
 
@@ -64,22 +64,27 @@ var label = svg.append("text")
 draw(projects);
 
 function draw(projects) {
-
-    var project = svg.append("g")
-        .selectAll("project")
-        .data(projects)
-        .enter()
-        .append("rect")
-        .style("fill", "black")
-        .call(bar)
-     
+   
     var len = projects.length
     for (var index = 0; index < len; index++) {
    
    //do the bar work in here as well so can position them together
      
      var project = projects[index];
-      
+    
+     if (project.month == 1) { //OK so transition should ++ this
+     
+        svg.append("g")
+        .selectAll("project")
+        .data(project.numberOfFeatures)
+        .enter()
+        .append("rect")
+        .style("fill", function() {  console.log("hello"); return "black" } )
+        .attr("x", function(d) { console.log(project); return projectPosition(project) } )
+        .attr("y", function(d) { return height - numberOfFeatures(project) } )
+        .attr("width", 60)
+        .attr("height", function(d) { return numberOfFeatures(project) });
+     
      svg.append("g")
         .selectAll("bug")
         .data(project.fixedBugs)
@@ -100,6 +105,7 @@ function draw(projects) {
         .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.unfixedBugs.indexOf(d) * 40 + 10 } )
         .attr("r", 10);
    }
+   }
 
 }
 
@@ -110,7 +116,18 @@ function draw(projects) {
         .attr("height", function(d) { return numberOfFeatures(d) });
     }
 
-
+    
+/*  // Add a title.
+  dot.append("title")
+      .text(function(d) { return d.name; });
+  // Start a transition that interpolates the data based on year.
+  svg.transition()
+      .duration(30000)
+      .ease("linear")
+      .tween("year", tweenYear)
+     // .each("end", enableInteraction);
+  // Positions the dots based on data.
+  
 /*
   // After the transition finishes, you can mouseover to change the year.
   function enableInteraction() {
