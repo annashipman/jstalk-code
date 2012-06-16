@@ -70,7 +70,7 @@ function draw(projects) {
         .data(projects)
         .enter()
         .append("rect")
-        .style("fill", "blue")
+        .style("fill", "black")
         .call(bar)
      
     var len = projects.length
@@ -87,7 +87,7 @@ function draw(projects) {
         .append("circle")
         .style("fill",function(){ return "green";})
         .attr("cx", function(d) { return projectPosition(project) + 10 }) 
-        .attr("cy", function(d) { return project.fixedBugs.indexOf(d) * 40 } )
+        .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.fixedBugs.indexOf(d) * 40 } )
         .attr("r", 10);
     
     svg.append("g")
@@ -97,25 +97,8 @@ function draw(projects) {
         .append("circle")
         .style("fill",function(){ return "red";})
         .attr("cx", function(d) { return projectPosition(project) + 40}) 
-        .attr("cy", function(d) { return project.unfixedBugs.indexOf(d) * 40 + 10 } )
+        .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.unfixedBugs.indexOf(d) * 40 + 10 } )
         .attr("r", 10);
-
-
-        
-/*        .
-        
-        
-        call(bugs);
-
-  `dunction bugs(bug) {
-    console.log("bug" + bug)
-    bug 
-    .attr("cx", function(d) { return project*30 }) 
-      .attr("cy", function(d) { return d*30 } )
-        .attr("r", 10);
-  }*/
-
-
    }
 
 }
@@ -128,18 +111,6 @@ function draw(projects) {
     }
 
 
-/*
-  function position(dot) {
-    dot .attr("cx", function(d) { return xScale(x(d)); })
-        .attr("cy", function(d) { return yScale(y(d)); })
-        .attr("r", function(d) { return radiusScale(radius(d)); });
-  }
-/*
-
-  // Defines a sort order so that the smallest dots are drawn on top.
-  function order(a, b) {
-    return radius(b) - radius(a);
-  }
 /*
   // After the transition finishes, you can mouseover to change the year.
   function enableInteraction() {
