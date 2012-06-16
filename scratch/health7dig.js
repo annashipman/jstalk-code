@@ -72,27 +72,9 @@ function draw(projects) {
         .append("rect")
         .style("fill", "black")
         .call(bar)
-        //.append("circle")
-        //.style("fill", "black")
-        //.call(bugs)
-
-   var originalDots = svg.append("g")
-        .selectAll("bug")
-        .data(projects)
-        .enter()
-        .append("circle")// function(d) { return "circle" })
-        .style("fill","blue")
-        .call(bugs);
-
      
-        //this second one doesn't happen (it's appended inside the main one)
-        //need a way to cycle through and do it x times. 
-        //.append("circle") //hmm - otherwise there is no method call...        
-        //.style("fill", "black")        
-        //.call(bugs)
-    console.log("here" + projects.length);
     var len = projects.length
-   for (var index = 0; index < len; index++) {
+    for (var index = 0; index < len; index++) {
    
    //do the bar work in here as well so can position them together
      
@@ -102,41 +84,28 @@ function draw(projects) {
         .selectAll("bug")
         .data(project.fixedBugs)
         .enter()
-        .append("circle")// function(d) { return "circle" })
-        .style("fill",function(){console.log("worked"); return "orange";})
-        .call(bugs);
+        .append("circle")
+        .style("fill",function(){console.log(project.fixedBugs); return "orange";})
+        .attr("cx", function(d) { return projectPosition(project) }) 
+        .attr("cy", function(d) { return d*30 } )
+        .attr("r", 10);
+/*        .
+        
+        
+        call(bugs);
+
+  `dunction bugs(bug) {
+    console.log("bug" + bug)
+    bug 
+    .attr("cx", function(d) { return project*30 }) 
+      .attr("cy", function(d) { return d*30 } )
+        .attr("r", 10);
+  }*/
+
+
    }
 
-    
-
 }
-/*
-  // A bisector since many nation's data is sparsely-defined.
-  var bisect = d3.bisector(function(d) { return d[0]; });
-
-  // Add a dot per nation. Initialize the data at 1800, and set the colors.
-  var dot = svg.append("g")
-      //.attr("class", "dots")
-    .selectAll(".dot")
-      .data(interpolateData(1800))
-    .enter().append("circle")
-      .attr("class", "dot")
-      .style("fill", function(d) { return colorScale(color(d)); })
-
-      .call(position)
-      .sort(order);
-    
-  // Add a title.
-  dot.append("title")
-      .text(function(d) { return d.name; });
-  // Start a transition that interpolates the function(d) {data based on year.
-  svg.transition()
-      .duration(30000)
-      .ease("linear")
-      .tween("year", tweenYear)
-     // .each("end", enableInteraction);
-*/
-  // Positions the dots based on data.
 
   function bar(project) {
     project .attr("x", function(d) {return projectPosition(d) } )
@@ -145,13 +114,6 @@ function draw(projects) {
         .attr("height", function(d) { return numberOfFeatures(d) });
     }
 
-  function bugs(project) {
-    console.log(project)
-    project //.append("circle").style("fill", "red")
-    .attr("cx", 50 )
-      .attr("cy", 50 )
-        .attr("r", 10);
-  }
 
 /*
   function position(dot) {
