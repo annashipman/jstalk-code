@@ -86,8 +86,8 @@ function draw(projects) {
         .enter()
         .append("circle")
         .style("fill",function(){ return "green";})
-        .attr("cx", function(d) { return projectPosition(project) }) 
-        .attr("cy", function(d) { return d*30 } )
+        .attr("cx", function(d) { return projectPosition(project) + 10 }) 
+        .attr("cy", function(d) { return project.fixedBugs.indexOf(d) * 40 } )
         .attr("r", 10);
     
     svg.append("g")
@@ -96,8 +96,8 @@ function draw(projects) {
         .enter()
         .append("circle")
         .style("fill",function(){ return "red";})
-        .attr("cx", function(d) { return projectPosition(project) + 10}) 
-        .attr("cy", function(d) { return d*40 } )
+        .attr("cx", function(d) { return projectPosition(project) + 40}) 
+        .attr("cy", function(d) { return project.unfixedBugs.indexOf(d) * 40 + 10 } )
         .attr("r", 10);
 
 

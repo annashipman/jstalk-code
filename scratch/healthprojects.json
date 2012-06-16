@@ -28,17 +28,3 @@ numberOfFeatures: 400,
     unfixedBugs: [7, 8, 9, 10]
 }];
 
-var bugs = [ {
-fixedBugs: 1, 
-    unfixedBugs: 1 
-},
-{
-fixedBugs: 2, 
-    unfixedBugs: 2 
-},{
-fixedBugs: 3, 
-    unfixedBugs: 3 
-},{
-fixedBugs: 4, 
-    unfixedBugs: 4 
-}]
