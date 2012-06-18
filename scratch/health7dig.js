@@ -72,20 +72,20 @@ function draw(projects) {
      
      var project = projects[index];
     
-     if (project.month == 1) { //OK so transition should ++ this
+     //if (project.month == 2) { //OK so transition should ++ this
      
-        svg.append("g")
+       var features = svg.append("g")
         .selectAll("project")
-        .data(project.numberOfFeatures)
+        .data(project.numberOfFeatures) //this needs to be the month 1.
         .enter()
         .append("rect")
-        .style("fill", function() {  console.log("hello"); return "black" } )
-        .attr("x", function(d) { console.log(project); return projectPosition(project) } )
+        .style("fill", function() { return "black" } )
+        .attr("x", function(d) { return projectPosition(project) } )
         .attr("y", function(d) { return height - numberOfFeatures(project) } )
         .attr("width", 60)
         .attr("height", function(d) { return numberOfFeatures(project) });
      
-     svg.append("g")
+  /*   svg.append("g")
         .selectAll("bug")
         .data(project.fixedBugs)
         .enter()
@@ -103,11 +103,10 @@ function draw(projects) {
         .style("fill",function(){ return "red";})
         .attr("cx", function(d) { return projectPosition(project) + 40}) 
         .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.unfixedBugs.indexOf(d) * 40 + 10 } )
-        .attr("r", 10);
-   }
-   }
+        .attr("r", 10); */
+  // }
+  }
 
-}
 
   function bar(project) {
     project .attr("x", function(d) {return projectPosition(d) } )
@@ -116,7 +115,33 @@ function draw(projects) {
         .attr("height", function(d) { return numberOfFeatures(d) });
     }
 
-    
+/*
+d3.select("body").transition().duration(20000)
+    .style("background-color", "black");
+ */
+    svg.transition()
+        .duration(30000)
+        .ease("linear")
+        .tween("month", tweenMonth)
+        
+        
+  function tweenMonth() {
+    var month = d3.interpolateNumber(1, 2);
+    console.log(month)
+    return function(t) { displayYear(month(t)); };
+  }
+
+  function displayYear(year) {
+    features.data(project.numberOfFeatures).enter()
+        .append("rect")
+        .style("fill", function() { return "black" } )
+        .attr("x", function(d) { return projectPosition(project) } )
+        .attr("y", function(d) { return height - numberOfFeatures(project) } )
+        .attr("width", 60)
+        .attr("height", function(d) { return numberOfFeatures(project) });;
+  }
+     
+ }   
 /*  // Add a title.
   dot.append("title")
       .text(function(d) { return d.name; });
