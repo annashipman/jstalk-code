@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>gRaphaël Line Charts</title>
+        <link rel="stylesheet" ref="lib/demo.css" media="screen" charset="utf-8">
+        <link rel="stylesheet" ref="lib/demo-print.css" media="print" charset="utf-8">
+        <script src="lib/raphael-min.js"></script>
+        <script src="lib/g.raphael.js"></script>
+        <script src="lib/g.line.js"></script>
+        <script>
+            window.onload = function () {
+                var r = Raphael("holder"),
+                    txtattr = { font: "12px sans-serif" };
+                
+                var x = [], y = [], y2 = [], y3 = [];
+
+                for (var i = 0; i < 100; i++) {
+                    x[i] = i * 10;
+                    y[i] = 37;
+                    y2[i] = 220 - (i*2);
+                    y3[i] = 14;
+                }
+
+                r.text(160, 10, "Simple Line Chart").attr(txtattr);
+
+                 r.linechart(20, 10, 300, 220, x, [y, y2, y3], { nostroke: false, axis: "0 0 1 1", symbol: "rect", smooth: true }).hoverColumn(function () {
+                    this.tags = r.set();
+
+                    for (var i = 0, ii = this.y.length; i < ii; i++) {
+                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+                    }
+                }, function () {
+                    this.tags && this.tags.remove();
+                });;
+
+
+            };
+        </script>
+    </head>
+    <body class="raphael" id="g.raphael.dmitry.baranovskiy.com">
+        <div id="holder"></div>
+    </body>
+</html>
+

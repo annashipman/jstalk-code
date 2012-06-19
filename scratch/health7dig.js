@@ -6,17 +6,17 @@ function redBugs(d) { return d.unfixedBugs; }
 
 // Chart dimensions.
 var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5},
-    width = 960 - margin.right,
+    width = 600 - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 // Various scales. These domains make assumptions of data, naturally.
-var xScale = d3.scale.linear().domain([0, 4]).range([0, width]), 
-    yScale = d3.scale.linear().domain([0, 26]).range([height, 0]),
+var xScale = d3.scale.ordinal().domain(["", "a", "b", "c", "d"]).range([0, width/5, 2*(width/5), 3*(width/5), 4*(width/5), width]), //this can't be the right way to do this!
+    yScale = d3.scale.linear().domain([0, 40]).range([height, 0]),
     radiusScale = d3.scale.sqrt().domain([0, 5e8]).range([0, 40]),
     colorScale = d3.scale.category10();
 
 // The x & y axes.
-var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(12, d3.format(",d")),
+var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(4, d3.format(",d")),
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 // Create the SVG container and set the origin.
@@ -43,7 +43,7 @@ svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", width)
     .attr("y", height - 6)
-    .text("time spent on features");
+    .text("projects");
 
 // Add a y-axis label.
 svg.append("text")
@@ -72,7 +72,7 @@ function draw(projects) {
      
      var project = projects[index];
     
-     //if (project.month == 2) { //OK so transition should ++ this
+     if (project.month == 1) { //OK so transition should ++ this
      
        var features = svg.append("g")
         .selectAll("project")
@@ -104,7 +104,7 @@ function draw(projects) {
         .attr("cx", function(d) { return projectPosition(project) + 40}) 
         .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.unfixedBugs.indexOf(d) * 40 + 10 } )
         .attr("r", 10); 
-  // }
+   }
   }
 
 
