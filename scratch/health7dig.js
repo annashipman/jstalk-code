@@ -85,7 +85,7 @@ function draw(projects) {
         .attr("width", 60)
         .attr("height", function(d) { return numberOfFeatures(project) });
      
-  /*   svg.append("g")
+     svg.append("g")
         .selectAll("bug")
         .data(project.fixedBugs)
         .enter()
@@ -103,7 +103,7 @@ function draw(projects) {
         .style("fill",function(){ return "red";})
         .attr("cx", function(d) { return projectPosition(project) + 40}) 
         .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.unfixedBugs.indexOf(d) * 40 + 10 } )
-        .attr("r", 10); */
+        .attr("r", 10); 
   // }
   }
 
@@ -198,8 +198,9 @@ d3.select("body").transition().duration(20000)
 
   // Updates the display to show the specified year.
   function displayYear(year) {
-    dot.data(interpolateData(year), key).call(position).sort(order);
-    //label.text(Math.round(year));
+    dot.data(interpolateData(year), key).call(position).sort(order); //(key: function key(d) { return d.name; }) - what happens if you pass key no - passing it to 
+                                                                     //interpolate data. key changes the colour. ignore.
+    label.text(Math.round(year));
   }
 
   // Interpolates the dataset for the given (fractional) year.
