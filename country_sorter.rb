@@ -12,28 +12,23 @@ class DataSorter
     end
   end
 
+  # [ id, comment, color, country_color ]
+  CONTINENT_PROPERTIES = [
+    [ "Africa", "A comment about Africa", "#F5003D", "#00B8F5" ],
+    [ "Asia", "A comment about Asia", "#3366FF", "#FF0033" ],
+    [ "Europe", "some stuff about Europe...", "#F5003D", "#88C200" ],
+    [ "North America", "some stuff about North America", "#27C200", "#FFFF3D" ],
+    [ "South America", "some stuff about South America", "#FFFF00", "#BD7AFF" ],
+    [ "Oceania", "A geopolitical region which includes the continent of Australia and the Pacific Islands",
+      "#9E3DFF", "#FF0033" ]
+  ]
+
   def initialize(csv_path)
     @csv_path = csv_path
   end
 
-  def empty_continents
-    [
-      Continent.new("Africa", "A comment about Africa",
-                    "#F5003D", "#00B8F5"),
-      Continent.new("Asia", "A comment about Asia",
-                    "#3366FF", "#FF0033"),
-      Continent.new("Europe", "some stuff about Europe...",
-                    "#F5003D", "#88C200"),
-      Continent.new("North America", "some stuff about North America",
-                    "#27C200", "#FFFF3D"),
-      Continent.new("South America", "some stuff about South America",
-                    "#FFFF00", "#BD7AFF"),
-      Continent.new("Oceania", "A geopolitical region which includes the continent of Australia and the Pacific Islands",
-                    "#9E3DFF", "#FF0033")
-    ]
-  end
-
   def continents_with_countries_from_csv
+    empty_continents = CONTINENT_PROPERTIES.map { |a| Continent.new(*a) }
     empty_continents.tap { |continents|
       CSV.table(@csv_path).each do |row|
         continent = continents.find { |c| c.id == row[:continent] }
@@ -42,7 +37,7 @@ class DataSorter
     }
   end
 
-  def build_data_structure
+  def data_structure
     continents = continents_with_countries_from_csv
     {
       "id" => "World",
@@ -72,7 +67,7 @@ class DataSorter
   end
 end
 
-data_structure =  DataSorter.new("countries_by_continent.csv").build_data_structure
+data_structure =  DataSorter.new("countries_by_continent.csv").data_structure
 File.open("json.js", "w") do |io|
   io << "var json =" << JSON.dump(data_structure)
 end
