@@ -9,7 +9,7 @@ var projects = [{
 {
 month: 1,
 projectPosition: 2,
-numberOfFeatures: [1],
+numberOfFeatures: [1, 1],
     timeSpentOnFeatures: 200, 
     fixedBugs: [2, 3], 
     unfixedBugs: [2, 3]

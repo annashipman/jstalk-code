@@ -19,6 +19,8 @@ var xScale = d3.scale.ordinal().domain(["", "a", "b", "c", "d"]).range([0, width
 var xAxis = d3.svg.axis().orient("bottom").scale(xScale).ticks(4, d3.format(",d")),
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
+//	var colors = ["#225533", "#44bbcc", "#88dddd", "#bbeeff"];
+
 // Create the SVG container and set the origin.
 var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -79,7 +81,7 @@ function draw(projects) {
         .data(project.numberOfFeatures) //this needs to be the month 1.
         .enter()
         .append("rect")
-        .style("fill", function() { return "black" } )
+        .style("fill", function() { return "#225533" } )
         .attr("x", function(d) { return projectPosition(project) } )
         .attr("y", function(d) { return height - numberOfFeatures(project) } )
         .attr("width", 60)
@@ -90,7 +92,7 @@ function draw(projects) {
         .data(project.fixedBugs)
         .enter()
         .append("circle")
-        .style("fill",function(){ return "green";})
+        .style("fill",function(){ return "#44bbcc";})
         .attr("cx", function(d) { return projectPosition(project) + 10 }) 
         .attr("cy", function(d) { return (height - numberOfFeatures(project)) - project.fixedBugs.indexOf(d) * 40 } )
         .attr("r", 10);
