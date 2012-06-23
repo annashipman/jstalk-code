@@ -1,72 +1,55 @@
-var months = [{
-    month: 1, 
+var months = [ [{
     projectPosition: 1,
     numberOfFeatures: [1],
-    timeSpentOnFeatures: 100, 
     fixedBugs: [1], 
     unfixedBugs: [1] 
  }, 
 {
-month: 1,
 projectPosition: 2,
 numberOfFeatures: [1, 1],
-    timeSpentOnFeatures: 200, 
     fixedBugs: [2, 3], 
     unfixedBugs: [2, 3]
 },
 {
-month: 1,
 projectPosition: 3,
 numberOfFeatures: [1],
-    timeSpentOnFeatures: 300, 
     fixedBugs: [4, 5, 6], 
     unfixedBugs: [4, 5, 6]
 },
 
 {
-month:1, 
 projectPosition: 4,
 numberOfFeatures: [1],
-    timeSpentOnFeatures: 400, 
     fixedBugs: [7, 8, 9, 10], 
     unfixedBugs: [7, 8, 9, 10]
-},
-
-
+}], [
 
 {
-    month: 2, 
     projectPosition: 1,
     numberOfFeatures: [1, 1],
-    timeSpentOnFeatures: 100, 
     fixedBugs: [1, 2, 3, 4, 5], 
     unfixedBugs: [1] 
  }, 
 {
-month: 2,
 projectPosition: 2,
 numberOfFeatures: [1, 1],
-    timeSpentOnFeatures: 200, 
     fixedBugs: [2, 3, 4, 5, 6, 7], 
     unfixedBugs: [2, 3]
 },
 {
-month: 2,
 projectPosition: 3,
 numberOfFeatures: [1, 1, 1],
-    timeSpentOnFeatures: 300, 
     fixedBugs: [4, 5, 6], 
     unfixedBugs: [4, 5, 6]
 },
 
 {
-month:2, 
 projectPosition: 4,
 numberOfFeatures: [1, 1, 1, 1],
-    timeSpentOnFeatures: 400, 
     fixedBugs: [7, 8, 9, 10], 
     unfixedBugs: [7, 8, 9, 10]
 }
+]
 
 ];
 

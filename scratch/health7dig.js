@@ -2,18 +2,18 @@ function projectPosition(d) { return d.projectPosition * 100; }
 function numberOfFeatures(d) { return d.numberOfFeatures.length * 50; }
 function numberOfFixedBugs(d) { return d.fixedBugs.length * 50; }
 
-draw(months, 1);
+var month = 0;
 
-function draw(months, month) {
-   
-    var len = months.length
-    console.log(len)
+draw(months[month]);
+
+function draw(month) {
+    
+    var len = month.length
+
     for (var index = 0; index < len; index++) {
    
-     var project = months[index];
-    
-  if (project.month == month) { 
-     
+     var project = month[index];
+          
      var features = svg.append("g")
         .selectAll("project")
         .data(project.numberOfFeatures) 
@@ -45,12 +45,14 @@ function draw(months, month) {
         .attr("cx", function(d) { return projectPosition(project) + 30}) 
         .attr("cy", function(d) { return (height - (numberOfFeatures(project) + numberOfFixedBugs(project))) - project.unfixedBugs.indexOf(d) * 40 - 20} )
         .attr("r", 15); 
-   }
   }
+  
+}
   
 function redraw() {
    
-   draw(months, 2)
+   month++;
+   draw(months[month])
    //would put the transition in here
 
 }
@@ -59,5 +61,5 @@ setInterval(function() {
   redraw();
 }, 1500);
 
-}
+
 
