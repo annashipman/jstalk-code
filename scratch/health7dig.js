@@ -1,4 +1,13 @@
-function projectPosition(d) { return d.projectPosition * 100; }
+function projectPosition(d) {
+    var projectX; 
+    if (d.project == "A") { projectX = 100; }
+    else if (d.project == "B") { projectX = 200; }
+    else if (d.project == "C") { projectX = 300; }
+    else if (d.project == "D") { projectX = 400; }
+    
+    return projectX;
+  }
+
 function numberOfFeatures(d) { return d.numberOfFeatures.length * 50; }
 function numberOfFixedBugs(d) { return d.fixedBugs.length * 50; }
 

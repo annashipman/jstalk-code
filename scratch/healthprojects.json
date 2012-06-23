@@ -1,50 +1,50 @@
 var months = [ [{
-    projectPosition: 1,
+    project: "A",
     numberOfFeatures: [1],
     fixedBugs: [1], 
     unfixedBugs: [1] 
  }, 
 {
-projectPosition: 2,
+project: "B",
 numberOfFeatures: [1, 1],
     fixedBugs: [2, 3], 
     unfixedBugs: [2, 3]
 },
 {
-projectPosition: 3,
+project: "C",
 numberOfFeatures: [1],
     fixedBugs: [4, 5, 6], 
     unfixedBugs: [4, 5, 6]
 },
 
 {
-projectPosition: 4,
+project: "D",
 numberOfFeatures: [1],
     fixedBugs: [7, 8, 9, 10], 
     unfixedBugs: [7, 8, 9, 10]
 }], [
 
 {
-    projectPosition: 1,
+    project: "A",
     numberOfFeatures: [1, 1],
     fixedBugs: [1, 2, 3, 4, 5], 
     unfixedBugs: [1] 
  }, 
 {
-projectPosition: 2,
+project: "B",
 numberOfFeatures: [1, 1],
     fixedBugs: [2, 3, 4, 5, 6, 7], 
     unfixedBugs: [2, 3]
 },
 {
-projectPosition: 3,
+project: "C",
 numberOfFeatures: [1, 1, 1],
     fixedBugs: [4, 5, 6], 
     unfixedBugs: [4, 5, 6]
 },
 
 {
-projectPosition: 4,
+project: "D",
 numberOfFeatures: [1, 1, 1, 1],
     fixedBugs: [7, 8, 9, 10], 
     unfixedBugs: [7, 8, 9, 10]
